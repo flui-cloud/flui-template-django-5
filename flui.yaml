@@ -1,0 +1,34 @@
+kind: Application
+apiVersion: flui/v1
+
+metadata:
+  name: my-django-app
+
+build:
+  strategy: dockerfile
+  dockerfile: ./Dockerfile
+
+deploy:
+  port: 8000
+  exposure: public
+  healthcheck:
+    path: /health/
+    port: 8000
+  resources:
+    profile: small
+  scaling:
+    min: 1
+    max: 3
+  domain:
+    auto: true
+    tls: true
+    hostnameMode: ip
+    certChallenge: http-01
+    certificateProvider: lets-encrypt-staging
+  env:
+    - name: DJANGO_SETTINGS_MODULE
+      value: config.settings
+    - name: SECRET_KEY
+      valueFrom:
+        generate: secret
+        length: 50

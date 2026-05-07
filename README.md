@@ -2,15 +2,15 @@
 
 A minimal demo application built with **Django 5.2 LTS** + Django REST Framework + drf-spectacular, ready to deploy on [Flui](https://flui.cloud).
 
-This template includes:
+Includes:
 
-- 🐍 Django 5.2 LTS with Python 3.13
-- 🩺 `/health/` endpoint
-- 📦 In-memory item store with full CRUD (`/items/`)
-- 📖 OpenAPI 3.1 spec auto-generated via drf-spectacular (`/api/openapi/`)
-- 📚 Swagger UI at `/docs/`
-- 🐳 Multi-stage Dockerfile (`#flui-managed`)
-- 🏃 Gunicorn for production
+- Django 5.2 LTS on Python 3.13
+- `/health/` endpoint
+- In-memory item store with full CRUD on `/items/`
+- OpenAPI 3.1 spec auto-generated via drf-spectacular at `/api/openapi/`
+- Swagger UI at `/docs/`
+- Multi-stage `#flui-managed` Dockerfile
+- Gunicorn for production
 
 ## Local development
 
@@ -42,9 +42,23 @@ docker run -p 8000:8000 flui-demo-django
 
 ## Deploy with Flui
 
-1. Click **Use this template** on GitHub
-2. Connect to Flui
-3. Click **Deploy**
+This repo ships with a [`flui.yaml`](./flui.yaml) manifest describing the build strategy, port, healthcheck and resource profile.
+
+From the CLI, with `flui` installed and authenticated against your cluster:
+
+```bash
+flui deploy ./flui.yaml
+```
+
+The CLI reads the manifest, triggers a build via GitHub Actions and rolls out the workload.
+
+From the UI:
+
+1. Click **Use this template** on GitHub.
+2. Connect the new repository to Flui.
+3. Click **Deploy**.
+
+Built for [Flui](https://github.com/flui-cloud/flui.api) — see the main repo for cluster setup and CLI installation.
 
 ## License
 
